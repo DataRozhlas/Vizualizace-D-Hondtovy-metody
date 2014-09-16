@@ -9,17 +9,21 @@ externalScripts =
 externalStyles =
   ...
 
-externalData = {}
+externalData =
+  "topo": "#__dirname/data/pha_2010_obvody/pha10obv.topo.json"
+  "style": "#__dirname/www/screen.css"
 
 preferScripts = <[ postInit.js _loadData.js ../data.js init.js _loadExternal.js]>
 deferScripts = <[ kandidatka.js base.js ]>
 develOnlyScripts = <[ _loadData.js _loadExternal.js]>
 gzippable = <[ ]>
 build-styles = (options = {}, cb) ->
+  require! cssmin
   (err, [external, local]) <~ async.parallel do
     * (cb) -> fs.readFile "#__dirname/www/external.css", cb
       (cb) -> prepare-stylus \screen, options, cb
-  <~ fs.writeFile "#__dirname/www/screen.css", external + "\n\n\n" + local
+  out = cssmin external + "\n\n\n" + local
+  <~ fs.writeFile "#__dirname/www/screen.css", out
   cb?!
 
 prepare-stylus = (file, options, cb) ->
