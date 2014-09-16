@@ -10,7 +10,7 @@ externalStyles =
   ...
 
 externalData =
-  "topo": "#__dirname/data/pha_2010_obvody/pha10obv.topo.json"
+  "geo": "#__dirname/data/pha_2010_obvody/pha10obv.geo.json"
   "style": "#__dirname/www/screen.css"
 
 preferScripts = <[ postInit.js _loadData.js ../data.js init.js _loadExternal.js]>

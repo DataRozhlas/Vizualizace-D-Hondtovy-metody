@@ -11,6 +11,6 @@ else
   for container in containers
     window.ig.containers[container.getAttribute 'data-ig'] = container
 
-if d3
+if d3?
   if document.getElementById 'fallback'
     that.parentNode.removeChild that
