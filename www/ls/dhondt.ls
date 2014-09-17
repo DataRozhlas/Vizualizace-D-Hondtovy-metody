@@ -11,6 +11,14 @@ window.ig.drawDhondt = (container) ->
   mandaty = [63 9 9 9 9 9 9 9]
   lines = for i in [0 til 63] => i
   container.append \div .attr \class \mandatLine
+    ..append \div
+      ..attr \class \pica
+    ..append \div
+      ..attr \class \picara
+    ..append \span
+      ..html 'Získali mandát'
+    ..append \span
+      ..html 'Nezískali mandát'
   castiElements = for castInUse in [0 to 7]
     castContainer = container.append \div .attr \class \cast
     votes = for strana in strany => strana[2][castInUse]
