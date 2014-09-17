@@ -11,12 +11,12 @@ window.ig.drawSouhrn = (container) ->
 
   container.append \span
     ..attr \class "helptext cela"
-    ..html "Výsledek při volbách Prahy jako celku"
+    ..html "Jak by to dopadlo bez dělení"
     ..append \span .attr \class \triangle
 
   container.append \span
     ..attr \class "helptext okrsky"
-    ..html "Výsledek při volbách po obvodech"
+    ..html "Výsledek při volbách 2010"
     ..append \span .attr \class \triangle
 
   mandaty_assoc = {okrsky: [], cela: []}
