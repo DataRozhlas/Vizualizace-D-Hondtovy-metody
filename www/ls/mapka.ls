@@ -65,10 +65,11 @@ window.ig.drawMapka = (container) ->
       ..text -> romans[it.properties.obvod_i]
 
   amount = 0
-  transition = ->
-    amount := if amount == 0 then 0.3 else 0
+  window.ig.mapkaTransition = (dir) ->
+    amount :=
+      | dir => 0.3
+      | _   => 0
+
     svg.selectAll 'path,text' .transition!
       ..duration 400
       ..attr \transform -> "translate(#{it.expansion.0 * amount},#{it.expansion.1 * amount})"
-
-  container.on \click transition
