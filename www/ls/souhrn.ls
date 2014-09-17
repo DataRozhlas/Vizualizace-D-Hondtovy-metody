@@ -9,6 +9,16 @@ window.ig.drawSouhrn = (container) ->
   container = container.append \div
     ..attr \class \souhrn
 
+  container.append \span
+    ..attr \class "helptext cela"
+    ..html "Výsledek při volbách Prahy jako celku"
+    ..append \span .attr \class \triangle
+
+  container.append \span
+    ..attr \class "helptext okrsky"
+    ..html "Výsledek při volbách po obvodech"
+    ..append \span .attr \class \triangle
+
   mandaty_assoc = {okrsky: [], cela: []}
   for [name, color, okrsky, cela] in strany
     for i in [0 til okrsky]

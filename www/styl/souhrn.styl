@@ -1,4 +1,31 @@
 .souhrn
+  .helptext
+    position absolute
+    font-size 0.9em
+    color #777
+    position absolute
+    top 65px
+    .triangle
+      position absolute
+      display block
+
+    &.okrsky
+      left 10px
+      padding-left 16px
+      .triangle
+        top 4px
+        left 0px
+        triangle 10px, 6px, 'top', lighten(black, 60%)
+    &.cela
+      left 0px
+      width 567px
+      padding-right 16px
+      text-align right
+      .triangle
+        bottom 6px
+        right 0px
+        triangle 10px, 6px, 'bottom', lighten(black, 60%)
+
   .container
     opacity 0.2
     &.active
@@ -32,6 +59,8 @@
     float left
     clear left
     margin-top 10px
+    &.cela
+      margin-top 28px
     .mandat
       width 8px
       height 8px
