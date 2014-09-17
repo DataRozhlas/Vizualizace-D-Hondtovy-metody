@@ -2,12 +2,12 @@ window.ig.drawMapka = (container) ->
   width = 610px
 
   svg = container.append \svg
-    ..attr \width width
-    ..attr \height 470px
+    ..attr \width width * 0.8
+    ..attr \height 470px * 0.8
 
   width = 520
   svg = svg.append \g
-    ..attr \transform "translate(#{(610 - width) / 2}, #{(610 - width) / 2})"
+    ..attr \transform "translate(#{(610 - width) / 2}, #{(610 - width) / 2}) scale(0.8)"
   okrsky = ig.data.geo
 
   projection = window.ig.getProjection okrsky, width
