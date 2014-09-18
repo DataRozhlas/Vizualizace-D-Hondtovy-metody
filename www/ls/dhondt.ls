@@ -1,4 +1,4 @@
-window.ig.drawDhondt = (container) ->
+window.ig.drawDhondt = (container, casti = null) ->
   container = container.append \div
     ..attr \class \dhondt
   strany =
@@ -20,9 +20,11 @@ window.ig.drawDhondt = (container) ->
       ..html 'Získali mandát'
     ..append \span
       ..html 'Nezískali mandát'
-  castiElements = [0 to 7].map (castInUse) ->
+  castiToUse = casti || [0 to 7]
+  castiElements = castiToUse.map (castInUse) ->
     castContainer = container.append \div .attr \class \cast
-      ..on \mouseover ->
+    if casti is null
+      castContainer.on \mouseover ->
         window.ig.souhrnTransition !castInUse
         window.ig.mapkaTransition !castInUse
         window.ig.dhondtTransition !castInUse

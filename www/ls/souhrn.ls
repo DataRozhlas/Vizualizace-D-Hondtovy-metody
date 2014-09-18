@@ -1,4 +1,4 @@
-window.ig.drawSouhrn = (container) ->
+window.ig.drawSouhrn = (container, inactive) ->
   strany =
     * "TOP 09" \#B560F3  26 22
     * "ODS"    \#1C76F0  20 16
@@ -29,22 +29,23 @@ window.ig.drawSouhrn = (container) ->
     "okrsky" : container.append \div .attr \class "okrsky container active"
     "cela" : container.append \div .attr \class "cela container active"
 
-  window.ig.souhrnTransition = (dir) ->
-    if dir
-      containers.cela.classed \active yes
-      containers.okrsky.classed \active no
-    else
-      containers.okrsky.classed \active yes
-      containers.cela.classed \active no
-  containers.okrsky.on \mouseover ->
-    window.ig.souhrnTransition 0
-    window.ig.mapkaTransition 0
-    window.ig.dhondtTransition 0
+  unless inactive
+    window.ig.souhrnTransition = (dir) ->
+      if dir
+        containers.cela.classed \active yes
+        containers.okrsky.classed \active no
+      else
+        containers.okrsky.classed \active yes
+        containers.cela.classed \active no
+    containers.okrsky.on \mouseover ->
+      window.ig.souhrnTransition 0
+      window.ig.mapkaTransition 0
+      window.ig.dhondtTransition 0
 
-  containers.cela.on \mouseover ->
-    window.ig.souhrnTransition 1
-    window.ig.mapkaTransition 1
-    window.ig.dhondtTransition 1
+    containers.cela.on \mouseover ->
+      window.ig.souhrnTransition 1
+      window.ig.mapkaTransition 1
+      window.ig.dhondtTransition 1
 
 
 
