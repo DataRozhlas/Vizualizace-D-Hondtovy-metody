@@ -124,7 +124,7 @@ combine-scripts = (options = {}, cb) ->
     fs.writeFile "#__dirname/www/js/script.js.map", map
   else
     external = fs.readFileSync "#__dirname/www/external.js"
-    code = external + code
+    code = external + "\n;\n" + code
 
   fs.writeFileSync "#__dirname/www/script.js", code
   console.log "Scripts combined"
