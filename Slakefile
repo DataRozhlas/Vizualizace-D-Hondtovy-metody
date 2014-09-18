@@ -18,7 +18,7 @@ externalData =
 preferScripts = <[ postInit.js _loadData.js ../data.js init.js _loadExternal.js]>
 deferScripts = <[ kandidatka.js base.js ]>
 develOnlyScripts = <[ _loadData.js _loadExternal.js]>
-gzippable = <[ ]>
+gzippable = <[ www/index.html www/script.js ]>
 build-styles = (options = {}, cb) ->
   require! cssmin
   (err, [external, local]) <~ async.parallel do
@@ -160,18 +160,11 @@ relativizeFilename = (file) ->
   file .= substr 1
 
 gzip-files = (cb) ->
-  (err) <~ async.map gzippable, gzip-file
+  require! child_process.exec
+  console.log "Zopfli-ing..."
+  (err, stdout, stderr) <~ exec "zopfli #{gzippable.join ' '}"
+  console.log "Zopflied"
   cb err
-
-gzip-file = (file, cb) ->
-  require! zlib
-  gzip = zlib.createGzip!
-  address        = "#__dirname/www/#file"
-  gzippedAddress = "#__dirname/www/#file.gz"
-  input  = fs.createReadStream address
-  output = fs.createWriteStream gzippedAddress
-  input.pipe gzip .pipe output
-  cb!
 
 refresh-manifest = (cb) ->
   (err, file) <~ fs.readFile "#__dirname/www/manifest.template.appcache"
@@ -205,8 +198,6 @@ inject-index = (cb) ->
     minifyCSS: 1
   index = htmlmin.minify index, htmlminConfig
   <~ fs.writeFile "#__dirname/www/index.html", index
-  (err, stdout, stderr) <~ exec 'zopfli www/index.html'
-  console.log err, stderr if err || stderr
   cb?!
 
 task \build ->
@@ -227,8 +218,8 @@ task \deploy ->
   <~ build-styles compression: yes
   <~ build-all-scripts
   <~ combine-scripts compression: yes
+  <~ inject-index!
   <~ gzip-files!
-  inject-index!
 
 task \build-styles ->
   copy-index!
