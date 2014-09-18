@@ -22,9 +22,9 @@ window.ig.drawDhondt = (container) ->
   castiElements = [0 to 7].map (castInUse) ->
     castContainer = container.append \div .attr \class \cast
       ..on \mouseover ->
-        window.ig.souhrnTransition castInUse
-        window.ig.mapkaTransition castInUse
-        window.ig.dhondtTransition castInUse
+        window.ig.souhrnTransition !castInUse
+        window.ig.mapkaTransition !castInUse
+        window.ig.dhondtTransition !castInUse
     votes = for strana in strany => strana[2][castInUse]
     mandates = for strana in strany => 0
     linesToDraw = if castInUse then 16 else 63
@@ -83,7 +83,7 @@ window.ig.drawDhondt = (container) ->
           ..classed \isEmpty -> !it.won
 
   window.ig.dhondtTransition = (dir) ->
-    if dir == 0
+    if dir
       castiElements[0].classed \inactive false
       castiElements[1 to 7].forEach (.classed \inactive true)
     else

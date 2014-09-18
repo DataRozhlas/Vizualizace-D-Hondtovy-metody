@@ -67,8 +67,8 @@ window.ig.drawMapka = (container) ->
   amount = 0
   window.ig.mapkaTransition = (dir) ->
     amount :=
-      | dir => 0.3
-      | _   => 0
+      | dir => 0
+      | _   => 0.3
 
     svg.selectAll 'path,text' .transition!
       ..duration 400
