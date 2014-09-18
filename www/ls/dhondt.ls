@@ -29,14 +29,37 @@ window.ig.drawDhondt = (container) ->
       mandates[winningIndex]++
       results = for strana, index in strany
         if winningIndex == index
-          strana[1]
+          {won: true, color: strana[1], mandateSum: mandates[winningIndex]}
         else
-          void
+          {won: false, mandateSum: mandates[index] + 1}
           # if mandatesAwarded <= mandaty[castInUse] then '#eee' else '#f9f9f9'
 
     castContainer
       ..selectAll \div.line .data lines .enter!append \div
         ..attr \class \line
+        ..attr \data-tooltip (d, i) ->
+          winningIndex = null
+          winningMandateCount = null
+          for item, index in d
+            if item.won
+              winningIndex = index
+              winningMandateCount = item.mandateSum
+              break
+          isOver = mandaty[castInUse] - i <= 0
+          out = if isOver || !castInUse
+            "#{i + 1}. mandát by bývala získala <b>#{strany[winningIndex].0}</b><br />"
+          else
+            "#{i + 1}. mandát získala <b>#{strany[winningIndex].0}</b><br />"
+          out += "Potřebovali na to skóre #{strany[winningIndex][2][castInUse]} / #{winningMandateCount} = <b>#{Math.round strany[winningIndex][2][castInUse] / winningMandateCount}</b><br />"
+          out += "Skóre ostatních stran v tomto kole:<br />"
+          for item, index in d
+            out += "\n"
+            if index == winningIndex
+              out += "<b>"
+            out += "#{strany[index].0}: #{strany[index][2][castInUse]} / #{item.mandateSum} = #{Math.round strany[index][2][castInUse] / item.mandateSum}<br />"
+            if index == winningIndex
+              out += "</b>"
+          out
         ..classed \isOver (d, i) -> mandaty[castInUse] - i <= 0
         ..style \opacity (d, i) ->
           remaining = mandaty[castInUse] - i
@@ -52,8 +75,8 @@ window.ig.drawDhondt = (container) ->
 
         ..selectAll \div.mandat .data (-> it) .enter!append \div
           ..attr \class \mandat
-          ..style \background-color -> it
-          ..classed \isEmpty -> it is void
+          ..style \background-color -> if it then it.color else void
+          ..classed \isEmpty -> !it.won
 
   window.ig.dhondtTransition = (dir) ->
     if dir == 0

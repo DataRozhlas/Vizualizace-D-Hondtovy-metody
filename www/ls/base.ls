@@ -1,4 +1,5 @@
 init = ->
+  new Tooltip!watchElements!
   container = d3.select window.ig.containers.base
   window.ig.drawSouhrn container
   window.ig.drawMapka container
