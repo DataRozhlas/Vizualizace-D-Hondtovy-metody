@@ -9,6 +9,7 @@ window.ig.drawDhondt = (container) ->
     * "VV"     \#66E2D8 [195158  25632  33607  36255  25288  23702  22822  27852 ]
     * "SZ"     \#0FB103 [203363  33867  26552  32782  31235  35228  26185  17514 ]
   mandaty = [63 9 9 9 9 9 9 9]
+  romans = <[0 I II III IV V VI VII]>
   lines = for i in [0 til 63] => i
   container.append \div .attr \class \mandatLine
     ..append \div
@@ -81,6 +82,9 @@ window.ig.drawDhondt = (container) ->
           ..attr \class \mandat
           ..style \background-color -> if it then it.color else void
           ..classed \isEmpty -> !it.won
+      ..append \span
+        ..attr \class \title
+        ..html (d, i) -> romans[castInUse]
 
   window.ig.dhondtTransition = (dir) ->
     if dir
