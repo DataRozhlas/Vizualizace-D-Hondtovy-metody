@@ -19,8 +19,11 @@ window.ig.drawDhondt = (container) ->
       ..html 'Získali mandát'
     ..append \span
       ..html 'Nezískali mandát'
-  castiElements = for castInUse in [0 to 7]
+  castiElements = [0 to 7].map (castInUse) ->
     castContainer = container.append \div .attr \class \cast
+      ..on \mouseover ->
+        window.ig.mapkaTransition castInUse
+        window.ig.dhondtTransition castInUse
     votes = for strana in strany => strana[2][castInUse]
     mandates = for strana in strany => 0
     linesToDraw = if castInUse then 16 else 63
