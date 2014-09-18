@@ -51,7 +51,7 @@ window.ig.drawDhondt = (container) ->
               break
           isOver = mandaty[castInUse] - i <= 0
           out = if isOver || !castInUse
-            "#{i + 1}. mandát by bývala získala <b>#{strany[winningIndex].0}</b><br />"
+            "#{i + 1}. mandát by byla získala <b>#{strany[winningIndex].0}</b><br />"
           else
             "#{i + 1}. mandát získala <b>#{strany[winningIndex].0}</b><br />"
           out += "Potřebovali na to skóre #{strany[winningIndex][2][castInUse]} / #{winningMandateCount} = <b>#{Math.round strany[winningIndex][2][castInUse] / winningMandateCount}</b><br />"
