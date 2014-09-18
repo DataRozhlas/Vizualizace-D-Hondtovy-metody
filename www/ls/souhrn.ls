@@ -28,17 +28,24 @@ window.ig.drawSouhrn = (container) ->
   containers =
     "okrsky" : container.append \div .attr \class "okrsky container active"
     "cela" : container.append \div .attr \class "cela container active"
+
+  window.ig.souhrnTransition = (dir) ->
+    if dir
+      containers.cela.classed \active yes
+      containers.okrsky.classed \active no
+    else
+      containers.okrsky.classed \active yes
+      containers.cela.classed \active no
   containers.okrsky.on \mouseover ->
-    containers.okrsky.classed \active yes
-    containers.cela.classed \active no
+    window.ig.souhrnTransition 0
     window.ig.mapkaTransition 0
     window.ig.dhondtTransition 0
 
   containers.cela.on \mouseover ->
-    containers.cela.classed \active yes
-    containers.okrsky.classed \active no
+    window.ig.souhrnTransition 1
     window.ig.mapkaTransition 1
     window.ig.dhondtTransition 1
+
 
 
   containers['okrsky'].append \div

@@ -22,6 +22,7 @@ window.ig.drawDhondt = (container) ->
   castiElements = [0 to 7].map (castInUse) ->
     castContainer = container.append \div .attr \class \cast
       ..on \mouseover ->
+        window.ig.souhrnTransition castInUse
         window.ig.mapkaTransition castInUse
         window.ig.dhondtTransition castInUse
     votes = for strana in strany => strana[2][castInUse]
