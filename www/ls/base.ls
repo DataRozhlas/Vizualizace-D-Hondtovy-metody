@@ -1,8 +1,6 @@
 init = ->
-  console.clear! #################################
   new Tooltip!watchElements!
   for element in document.querySelectorAll '.ig.clearFix'
-    console.log element.parentNode
     element.parentNode.className = "embed clearfix"
   container = d3.select window.ig.containers.base
   window.ig.drawSouhrn do
